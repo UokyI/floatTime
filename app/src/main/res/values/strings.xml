@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">悬浮倒计时</string>
+    <string name="float_channel_name">悬浮倒计时服务</string>
+    <string name="float_channel_desc">保持悬浮图标显示</string>
+    <string name="notification_ticker">悬浮倒计时运行中</string>
+
+    <string name="hint_task_name">任务名称</string>
+    <string name="hint_minutes">定时时间(分钟)</string>
+    <string name="default_minutes">5</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_start">开始</string>
+    <string name="dialog_title">设定倒计时任务</string>
+
+    <string name="permission_required">需要悬浮窗权限才能显示悬浮图标</string>
+    <string name="open_permission">去授权</string>
+    <string name="start_float">开启悬浮</string>
+    <string name="stop_float">关闭悬浮</string>
+
+    <string name="label_idle_color">倒计时关闭（空闲色）</string>
+    <string name="label_active_color">倒计时开启（进行色）</string>
+    <string name="label_ball_size">悬浮球直径</string>
+    <string name="btn_pick_color">选择颜色</string>
+    <string name="color_picker_title">选择颜色</string>
+    <string name="btn_confirm">确定</string>
+
+    <string name="menu_home">首页</string>
+    <string name="menu_config">配置</string>
+    <string name="menu_history">历史</string>
+    <string name="menu_advanced">高级配置</string>
+    <string name="menu_remind">提醒</string>
+    <string name="menu_about">关于</string>
+    <string name="drawer_open">打开菜单</string>
+    <string name="drawer_close">关闭菜单</string>
+
+    <string name="page_config_title">配置</string>
+    <string name="page_history_title">历史</string>
+    <string name="page_remind_title">提醒方式</string>
+    <string name="remind_silent">静默</string>
+    <string name="remind_vibrate">震动</string>
+    <string name="remind_light">轻度提醒</string>
+    <string name="remind_storm">闪动</string>
+    <string name="remind_desc">达到倒计时后的提醒方式</string>
+    <string name="history_empty">暂无历史记录</string>
+    <string name="history_completed">完成</string>
+    <string name="history_cancelled">取消</string>
+
+    <string name="adv_view_config">查看配置</string>
+    <string name="adv_reset">重置</string>
+    <string name="adv_reset_confirm">确定清除全部配置并恢复默认？</string>
+    <string name="btn_copy">复制</string>
+    <string name="btn_paste">粘贴</string>
+    <string name="btn_config_close">关闭</string>
+    <string name="copied">已复制</string>
+    <string name="pasted">已覆盖</string>
+    <string name="paste_invalid">粘贴内容格式无效</string>
+
+    <string name="about_title">关于</string>
+    <string name="about_content">悬浮倒计时\n\n一款简约的桌面悬浮倒计时 App。\n\n• 圆形悬浮图标，可拖动到任意位置\n• 长按弹出设置：任务名 + 定时分钟数\n• 点击开始后图标上半显示任务名前两字，下半秒级倒计时\n• 到达时间手机震动提示\n• 可自定义空闲/进行两种颜色与悬浮球直径\n\n配色：桃色 RGB(251,204,199) / 薄荷绿 RGB(149,197,172)\n玻璃罩子液态动态 UI</string>
+</resources>

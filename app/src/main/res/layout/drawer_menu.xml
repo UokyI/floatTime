@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFFFF"
+    android:paddingTop="40dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/menuHome"
+        style="@style/MenuButton" />
+
+    <Button
+        android:id="@+id/menuConfig"
+        style="@style/MenuButton" />
+
+    <Button
+        android:id="@+id/menuHistory"
+        style="@style/MenuButton" />
+
+    <Button
+        android:id="@+id/menuRemind"
+        style="@style/MenuButton" />
+
+    <Button
+        android:id="@+id/menuAdvanced"
+        style="@style/MenuButton" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"
+        android:layout_marginVertical="12dp" />
+
+    <Button
+        android:id="@+id/menuAbout"
+        style="@style/MenuButton" />
+
+</LinearLayout>

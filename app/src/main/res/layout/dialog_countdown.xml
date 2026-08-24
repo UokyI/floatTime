@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_card_bg"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_title"
+            android:textColor="#222222"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <EditText
+            android:id="@+id/editTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_task_name"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textSize="15sp"
+            android:textColor="#222222"
+            android:textColorHint="#AAAAAA"
+            android:background="@drawable/edit_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="14dp" />
+
+        <EditText
+            android:id="@+id/editMinutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_minutes"
+            android:inputType="number"
+            android:maxLength="4"
+            android:text="@string/default_minutes"
+            android:textSize="15sp"
+            android:textColor="#222222"
+            android:textColorHint="#AAAAAA"
+            android:background="@drawable/edit_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_cancel"
+                android:textColor="#666666"
+                android:background="?android:attr/selectableItemBackground"
+                android:minWidth="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_start"
+                android:textColor="#1F6FEB"
+                android:background="?android:attr/selectableItemBackground"
+                android:minWidth="0dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

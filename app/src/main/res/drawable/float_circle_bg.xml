@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 外圈高光描边 -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#33FFFFFF" />
+        </shape>
+    </item>
+    <!-- 主体渐变(桃色,从左上亮到右下深) -->
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="linear"
+                android:angle="135"
+                android:startColor="#FFFDD9D5"
+                android:centerColor="#FFFBFCC7"
+                android:endColor="#FFF6B4AD"
+                android:gradientRadius="120dp"
+                android:useLevel="false" />
+        </shape>
+    </item>
+    <!-- 顶部高光 -->
+    <item
+        android:left="14dp"
+        android:top="10dp"
+        android:right="14dp"
+        android:bottom="60dp">
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.3"
+                android:gradientRadius="60dp"
+                android:startColor="#66FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:useLevel="false" />
+        </shape>
+    </item>
+</layer-list>

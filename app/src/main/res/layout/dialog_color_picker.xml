@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_card_bg"
+    android:padding="28dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color_picker_title"
+        android:textColor="#222222"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <com.floattime.app.HsvColorPickerView
+        android:id="@+id/hsvPicker"
+        android:layout_width="match_parent"
+        android:layout_height="320dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/btnColorCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_cancel"
+            android:textColor="#666666"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnColorConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_confirm"
+            android:textColor="#1F6FEB"
+            android:background="?android:attr/selectableItemBackground"
+            android:minWidth="0dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
