@@ -155,6 +155,11 @@ public class LiquidFloatingView extends View {
     public void setBottomText(String t) { this.bottomText = t == null ? "" : t; invalidate(); }
     public void setShowText(boolean show) { this.showText = show; invalidate(); }
 
+    public void setTextSizeSp(int sp) {
+        textPaint.setTextSize(sp(sp));
+        invalidate();
+    }
+
     private int ev(int from, int to) { return (int) argb.evaluate(colorProgress, from, to); }
 
     @Override

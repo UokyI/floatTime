@@ -1,4 +1,4 @@
-$sdkRoot = "D:\yuan\workspace\Android\sdk"
+$sdkRoot = "E:\workspace\Android\sdk"
 $base    = "https://mirrors.cloud.tencent.com/AndroidSDK"
 
 New-Item -ItemType Directory -Force -Path $sdkRoot | Out-Null

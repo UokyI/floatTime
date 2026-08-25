@@ -17,10 +17,23 @@ public class History {
     private static final String FILE = "history.json";
     private static final int MAX = 200;
 
-    // 状态：0=进行中，1=完成（✓），2=取消（✗）
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_COMPLETED = 1;
     public static final int STATUS_CANCELLED = 2;
+
+    public interface OnChangedListener {
+        void onChanged();
+    }
+
+    private static OnChangedListener listener;
+
+    public static void setOnChangedListener(OnChangedListener l) {
+        listener = l;
+    }
+
+    private static void notifyChanged() {
+        if (listener != null) listener.onChanged();
+    }
 
     public static class Item {
         public long id;            // 雪花 ID
@@ -107,7 +120,7 @@ public class History {
         list.add(0, item);
         if (list.size() > MAX) list = new ArrayList<>(list.subList(0, MAX));
         save(c, list);
-        notifyChanged(c);
+        notifyChanged();
     }
 
     // 按 ID 更新某笔记录的状态和结束时间
@@ -121,7 +134,7 @@ public class History {
             }
         }
         save(c, list);
-        notifyChanged(c);
+        notifyChanged();
     }
 
     public static void save(Context c, List<Item> list) {
@@ -144,12 +157,18 @@ public class History {
 
     public static void clear(Context c) {
         new File(c.getFilesDir(), FILE).delete();
-        notifyChanged(c);
+        notifyChanged();
     }
 
-    private static void notifyChanged(Context c) {
-        android.content.Intent intent = new android.content.Intent(HistoryAction.BROADCAST);
-        intent.setPackage(c.getPackageName());
-        c.sendBroadcast(intent);
+    public static void remove(Context c, long id) {
+        List<Item> list = load(c);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (list.get(i).id == id) {
+                list.remove(i);
+                break;
+            }
+        }
+        save(c, list);
+        notifyChanged();
     }
 }

@@ -1,10 +1,6 @@
 package com.floattime.app;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,39 +15,30 @@ import java.util.Locale;
 
 public class HistoryAdapter extends BaseAdapter {
 
+    public interface OnItemLongClickListener {
+        void onItemLongClick(History.Item item, int position);
+    }
+
     private final Context ctx;
     private List<History.Item> items = new ArrayList<>();
     private final SimpleDateFormat dateFmt = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
-    private BroadcastReceiver receiver;
+    private OnItemLongClickListener longClickListener;
 
     public HistoryAdapter(Context c) {
         this.ctx = c;
-        reload();
-        // 适配器自己监听数据变化广播，收到后自动刷新
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                reload();
-            }
-        };
-        IntentFilter filter = new IntentFilter(HistoryAction.BROADCAST);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ctx.registerReceiver(receiver, filter, Context.RECEIVER_NOT_EXPORTED);
-        } else {
-            ctx.registerReceiver(receiver, filter);
-        }
+        items = History.load(c);
+        History.setOnChangedListener(() -> {
+            items = History.load(ctx);
+            notifyDataSetChanged();
+        });
     }
 
-    private void reload() {
-        items = History.load(ctx);
-        notifyDataSetChanged();
+    public void setOnItemLongClickListener(OnItemLongClickListener l) {
+        this.longClickListener = l;
     }
 
     public void destroy() {
-        if (receiver != null) {
-            ctx.unregisterReceiver(receiver);
-            receiver = null;
-        }
+        History.setOnChangedListener(null);
     }
 
     @Override
@@ -77,6 +64,14 @@ public class HistoryAdapter extends BaseAdapter {
         detail.setText(it.minutes + "分钟 · " + dateFmt.format(new Date(it.timestamp)));
         status.setText(it.statusSymbol());
         status.setTextColor(it.statusColor());
+
+        cv.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onItemLongClick(it, pos);
+            }
+            return true;
+        });
+
         return cv;
     }
 }

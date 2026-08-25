@@ -21,19 +21,22 @@ public class Config {
     public static final int DEF_ACT_C  = 0xFF95C5AC;
     public static final int DEF_ACT_D  = 0xFF7BB496;
     public static final int DEF_ACT_G  = 0xFF5A9A7C;
-    public static final int DEF_SIZE   = 160;
+    public static final int DEF_SIZE   = 94;
+    public static final int DEF_TEXT_SIZE = 15;
     // 提醒方式：0=静默 1=震动 2=轻度提醒(清脆音效) 3=闪动(风浪)
-    public static final int DEF_REMIND = 1;
+    public static final int DEF_REMIND = 3;
 
     public int idleC, idleD, idleG;
     public int actC, actD, actG;
     public int sizeDp;
+    public int textSizeSp;
     public int remind;
 
     public Config() {
         idleC = DEF_IDLE_C; idleD = DEF_IDLE_D; idleG = DEF_IDLE_G;
         actC  = DEF_ACT_C;  actD  = DEF_ACT_D;  actG  = DEF_ACT_G;
         sizeDp = DEF_SIZE;
+        textSizeSp = DEF_TEXT_SIZE;
         remind = DEF_REMIND;
     }
 
@@ -52,6 +55,7 @@ public class Config {
             cfg.actD  = j.optInt("actD",  DEF_ACT_D);
             cfg.actG  = j.optInt("actG",  DEF_ACT_G);
             cfg.sizeDp = j.optInt("sizeDp", DEF_SIZE);
+            cfg.textSizeSp = j.optInt("textSizeSp", DEF_TEXT_SIZE);
             cfg.remind = j.optInt("remind", DEF_REMIND);
         } catch (Exception ignored) {
         }
@@ -79,6 +83,7 @@ public class Config {
             j.put("idleC", idleC); j.put("idleD", idleD); j.put("idleG", idleG);
             j.put("actC", actC);   j.put("actD", actD);   j.put("actG", actG);
             j.put("sizeDp", sizeDp);
+            j.put("textSizeSp", textSizeSp);
             j.put("remind", remind);
         } catch (Exception ignored) {
         }
@@ -95,6 +100,7 @@ public class Config {
         cfg.actD  = j.optInt("actD",  DEF_ACT_D);
         cfg.actG  = j.optInt("actG",  DEF_ACT_G);
         cfg.sizeDp = j.optInt("sizeDp", DEF_SIZE);
+        cfg.textSizeSp = j.optInt("textSizeSp", DEF_TEXT_SIZE);
         cfg.remind = j.optInt("remind", DEF_REMIND);
         return cfg;
     }
@@ -103,6 +109,7 @@ public class Config {
         idleC = DEF_IDLE_C; idleD = DEF_IDLE_D; idleG = DEF_IDLE_G;
         actC  = DEF_ACT_C;  actD  = DEF_ACT_D;  actG  = DEF_ACT_G;
         sizeDp = DEF_SIZE;
+        textSizeSp = DEF_TEXT_SIZE;
         remind = DEF_REMIND;
     }
 
@@ -121,6 +128,7 @@ public class Config {
         sb.append("    \"glow\": \"").append(hex(actG)).append("\"\n");
         sb.append("  },\n");
         sb.append("  \"sizeDp\": ").append(sizeDp).append(",\n");
+        sb.append("  \"textSizeSp\": ").append(textSizeSp).append(",\n");
         sb.append("  \"remind\": ").append(remind).append("\n");
         sb.append("}");
         return sb.toString();
@@ -144,6 +152,9 @@ public class Config {
         java.util.regex.Matcher m = java.util.regex.Pattern.compile(
                 "\"sizeDp\"\\s*:\\s*(\\d+)").matcher(s);
         if (m.find()) cfg.sizeDp = Integer.parseInt(m.group(1));
+        java.util.regex.Matcher m1b = java.util.regex.Pattern.compile(
+                "\"textSizeSp\"\\s*:\\s*(\\d+)").matcher(s);
+        if (m1b.find()) cfg.textSizeSp = Integer.parseInt(m1b.group(1));
         java.util.regex.Matcher m2 = java.util.regex.Pattern.compile(
                 "\"remind\"\\s*:\\s*(\\d+)").matcher(s);
         if (m2.find()) cfg.remind = Integer.parseInt(m2.group(1));

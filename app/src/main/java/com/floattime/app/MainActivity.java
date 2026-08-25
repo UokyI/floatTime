@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsetsController;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private View swatchIdle, swatchActive;
     private SeekBar seekSize;
     private TextView textSize;
+    private SeekBar seekTextSize;
+    private TextView textTextSize;
 
     private int currentPage = 0;
 
@@ -55,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 沉浸式状态栏：深色图标
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
         titleBar = findViewById(R.id.titleBar);
@@ -142,6 +155,23 @@ public class MainActivity extends AppCompatActivity {
         updateSwatches();
         seekSize.setProgress(cfg.sizeDp);
         textSize.setText(cfg.sizeDp + "dp");
+
+        // 字体大小
+        seekTextSize = pageConfig.findViewById(R.id.seekTextSize);
+        textTextSize = pageConfig.findViewById(R.id.textTextSize);
+        seekTextSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override public void onProgressChanged(SeekBar sb, int p, boolean fromUser) {
+                cfg.textSizeSp = Math.max(12, p);
+                textTextSize.setText(cfg.textSizeSp + "sp");
+            }
+            @Override public void onStartTrackingTouch(SeekBar sb) {}
+            @Override public void onStopTrackingTouch(SeekBar sb) {
+                cfg.save(MainActivity.this);
+                notifyServiceConfigChanged();
+            }
+        });
+        seekTextSize.setProgress(cfg.textSizeSp);
+        textTextSize.setText(cfg.textSizeSp + "sp");
 
         // 提醒页
         RadioGroup remindGroup = pageRemind.findViewById(R.id.remindGroup);
@@ -231,6 +261,33 @@ public class MainActivity extends AppCompatActivity {
         if (historyAdapter == null) {
             historyAdapter = new HistoryAdapter(this);
             list.setAdapter(historyAdapter);
+            historyAdapter.setOnItemLongClickListener((item, position) -> {
+                String[] options = {
+                        getString(R.string.history_apply),
+                        getString(R.string.history_delete)
+                };
+                new android.app.AlertDialog.Builder(this)
+                        .setTitle(item.task)
+                        .setItems(options, (dialog, which) -> {
+                            if (which == 0) {
+                                if (!canDrawOverlays()) {
+                                    requestOverlayPermission();
+                                } else {
+                                    FloatingService.startCountdownFromActivity(MainActivity.this, item.task, item.minutes);
+                                    Toast.makeText(this, R.string.start_float, Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                new android.app.AlertDialog.Builder(this)
+                                        .setMessage(R.string.history_delete_confirm)
+                                        .setPositiveButton(R.string.btn_confirm, (a, b) -> {
+                                            History.remove(this, item.id);
+                                        })
+                                        .setNegativeButton(R.string.btn_cancel, null)
+                                        .show();
+                            }
+                        })
+                        .show();
+            });
         }
         if (historyAdapter.getCount() == 0) {
             list.setVisibility(View.GONE);
@@ -239,6 +296,17 @@ public class MainActivity extends AppCompatActivity {
             list.setVisibility(View.VISIBLE);
             empty.setVisibility(View.GONE);
         }
+
+        pageHistory.findViewById(R.id.btnClearAll).setOnClickListener(v -> {
+            if (historyAdapter.getCount() == 0) return;
+            new android.app.AlertDialog.Builder(this)
+                    .setMessage(R.string.history_clear_confirm)
+                    .setPositiveButton(R.string.btn_confirm, (a, b) -> {
+                        History.clear(this);
+                    })
+                    .setNegativeButton(R.string.btn_cancel, null)
+                    .show();
+        });
     }
 
     private void showAdvanced() {

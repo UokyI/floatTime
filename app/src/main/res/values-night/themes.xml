@@ -1,3 +1,11 @@
 <resources>
-    <style name="Theme.FloatTime" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.FloatTime" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/peach_700</item>
+        <item name="colorPrimaryVariant">@color/peach_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/peach_700</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">@color/peach_700</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
 </resources>

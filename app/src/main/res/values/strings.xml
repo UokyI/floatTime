@@ -19,6 +19,7 @@
     <string name="label_idle_color">倒计时关闭（空闲色）</string>
     <string name="label_active_color">倒计时开启（进行色）</string>
     <string name="label_ball_size">悬浮球直径</string>
+    <string name="label_text_size">悬浮球字体大小</string>
     <string name="btn_pick_color">选择颜色</string>
     <string name="color_picker_title">选择颜色</string>
     <string name="btn_confirm">确定</string>
@@ -43,6 +44,11 @@
     <string name="history_empty">暂无历史记录</string>
     <string name="history_completed">完成</string>
     <string name="history_cancelled">取消</string>
+    <string name="history_clear_all">清除全部</string>
+    <string name="history_clear_confirm">确定清除所有历史记录？</string>
+    <string name="history_delete_confirm">确定删除该条记录？</string>
+    <string name="history_delete">删除</string>
+    <string name="history_apply">应用</string>
 
     <string name="adv_view_config">查看配置</string>
     <string name="adv_reset">重置</string>

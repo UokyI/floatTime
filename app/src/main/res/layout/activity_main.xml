@@ -17,7 +17,7 @@
             android:layout_height="56dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="#FFFFFFFF"
+            android:background="@color/peach_500"
             android:paddingStart="12dp"
             android:paddingEnd="16dp">
 
@@ -28,7 +28,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:text="≡"
                 android:textSize="24sp"
-                android:textColor="#333333"
+                android:textColor="#222222"
                 android:minWidth="0dp"
                 android:padding="0dp" />
 

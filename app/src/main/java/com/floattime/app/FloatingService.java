@@ -62,6 +62,8 @@ public class FloatingService extends Service {
     private long remainingMillis = 0;
     private String currentTask = "";
     private boolean counting = false;
+    private long lastClickTime = 0;
+    private static final long DOUBLE_CLICK_INTERVAL = 300;
 
 
     @Nullable
@@ -85,6 +87,7 @@ public class FloatingService extends Service {
         if (liquidView != null) {
             liquidView.setIdleColors(cfg.idleC, cfg.idleD, cfg.idleG);
             liquidView.setActiveColors(cfg.actC, cfg.actD, cfg.actG);
+            liquidView.setTextSizeSp(cfg.textSizeSp);
         }
         if (layoutParams != null) {
             int size = dp(cfg.sizeDp);
@@ -173,6 +176,7 @@ public class FloatingService extends Service {
         cfg = Config.load(this);
         liquidView.setIdleColors(cfg.idleC, cfg.idleD, cfg.idleG);
         liquidView.setActiveColors(cfg.actC, cfg.actD, cfg.actG);
+        liquidView.setTextSizeSp(cfg.textSizeSp);
 
         int size = dp(cfg.sizeDp);
         layoutParams = new WindowManager.LayoutParams(
@@ -245,6 +249,15 @@ public class FloatingService extends Service {
                         }
                         if (moved) {
                             snapToEdge();
+                        } else if (event.getAction() == MotionEvent.ACTION_UP
+                                && !longPressFired) {
+                            long now = System.currentTimeMillis();
+                            if (now - lastClickTime < DOUBLE_CLICK_INTERVAL) {
+                                lastClickTime = 0;
+                                openMainActivity();
+                            } else {
+                                lastClickTime = now;
+                            }
                         }
                         return true;
                 }
@@ -525,6 +538,18 @@ public class FloatingService extends Service {
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if (nm != null) {
             nm.notify(NOTI_ID, buildNotification(content));
+        }
+    }
+
+    private void openMainActivity() {
+        try {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
