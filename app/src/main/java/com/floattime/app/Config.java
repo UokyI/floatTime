@@ -25,12 +25,15 @@ public class Config {
     public static final int DEF_TEXT_SIZE = 15;
     // 提醒方式：0=静默 1=震动 2=轻度提醒(清脆音效) 3=闪动(风浪)
     public static final int DEF_REMIND = 3;
+    // 语言：system=跟随系统 zh=中文 en=English
+    public static final String DEF_LANG = AppLocale.SYSTEM;
 
     public int idleC, idleD, idleG;
     public int actC, actD, actG;
     public int sizeDp;
     public int textSizeSp;
     public int remind;
+    public String lang;
 
     public Config() {
         idleC = DEF_IDLE_C; idleD = DEF_IDLE_D; idleG = DEF_IDLE_G;
@@ -38,6 +41,7 @@ public class Config {
         sizeDp = DEF_SIZE;
         textSizeSp = DEF_TEXT_SIZE;
         remind = DEF_REMIND;
+        lang = DEF_LANG;
     }
 
     public static Config load(Context c) {
@@ -56,7 +60,8 @@ public class Config {
             cfg.actG  = j.optInt("actG",  DEF_ACT_G);
             cfg.sizeDp = j.optInt("sizeDp", DEF_SIZE);
             cfg.textSizeSp = j.optInt("textSizeSp", DEF_TEXT_SIZE);
-            cfg.remind = j.optInt("remind", DEF_REMIND);
+cfg.remind = j.optInt("remind", DEF_REMIND);
+            cfg.lang = j.optString("lang", DEF_LANG);
         } catch (Exception ignored) {
         }
         return cfg;
@@ -85,6 +90,7 @@ public class Config {
             j.put("sizeDp", sizeDp);
             j.put("textSizeSp", textSizeSp);
             j.put("remind", remind);
+            j.put("lang", lang);
         } catch (Exception ignored) {
         }
         return j;
@@ -102,6 +108,7 @@ public class Config {
         cfg.sizeDp = j.optInt("sizeDp", DEF_SIZE);
         cfg.textSizeSp = j.optInt("textSizeSp", DEF_TEXT_SIZE);
         cfg.remind = j.optInt("remind", DEF_REMIND);
+        cfg.lang = j.optString("lang", DEF_LANG);
         return cfg;
     }
 
@@ -111,6 +118,7 @@ public class Config {
         sizeDp = DEF_SIZE;
         textSizeSp = DEF_TEXT_SIZE;
         remind = DEF_REMIND;
+        lang = DEF_LANG;
     }
 
     // 带颜色的格式化 JSON（用于“查看配置”弹窗，显示 hex 颜色）
@@ -129,7 +137,8 @@ public class Config {
         sb.append("  },\n");
         sb.append("  \"sizeDp\": ").append(sizeDp).append(",\n");
         sb.append("  \"textSizeSp\": ").append(textSizeSp).append(",\n");
-        sb.append("  \"remind\": ").append(remind).append("\n");
+        sb.append("  \"remind\": ").append(remind).append(",\n");
+        sb.append("  \"lang\": \"").append(lang == null ? DEF_LANG : lang).append("\"\n");
         sb.append("}");
         return sb.toString();
     }
@@ -158,6 +167,9 @@ public class Config {
         java.util.regex.Matcher m2 = java.util.regex.Pattern.compile(
                 "\"remind\"\\s*:\\s*(\\d+)").matcher(s);
         if (m2.find()) cfg.remind = Integer.parseInt(m2.group(1));
+        java.util.regex.Matcher m3 = java.util.regex.Pattern.compile(
+                "\"lang\"\\s*:\\s*\"([a-zA-Z]+)\"").matcher(s);
+        if (m3.find()) cfg.lang = m3.group(1).toLowerCase();
         return cfg;
     }
 

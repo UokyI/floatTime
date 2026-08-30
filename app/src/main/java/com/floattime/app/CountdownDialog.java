@@ -57,7 +57,7 @@ public class CountdownDialog extends Dialog {
         btnStart.setOnClickListener(v -> {
             String name = getText(editTaskName).trim();
             if (TextUtils.isEmpty(name)) {
-                editTaskName.setError("请输入任务名称");
+                editTaskName.setError(getContext().getString(R.string.error_task_name));
                 return;
             }
             String minStr = getText(editMinutes).trim();
@@ -68,7 +68,7 @@ public class CountdownDialog extends Dialog {
                 minutes = 5;
             }
             if (minutes <= 0) {
-                editMinutes.setError("分钟数需大于0");
+                editMinutes.setError(getContext().getString(R.string.error_minutes));
                 return;
             }
             if (listener != null) {

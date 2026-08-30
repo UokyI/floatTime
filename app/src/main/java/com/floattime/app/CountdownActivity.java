@@ -1,5 +1,6 @@
 package com.floattime.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CountdownActivity extends AppCompatActivity {
 
     public static final String EXTRA_CANCEL = "extra_cancel";
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(AppLocale.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +42,7 @@ public class CountdownActivity extends AppCompatActivity {
         btnStart.setOnClickListener(v -> {
             String name = editTaskName.getText().toString().trim();
             if (TextUtils.isEmpty(name)) {
-                editTaskName.setError("请输入任务名称");
+                editTaskName.setError(getString(R.string.error_task_name));
                 return;
             }
             String minStr = editMinutes.getText().toString().trim();
@@ -47,7 +53,7 @@ public class CountdownActivity extends AppCompatActivity {
                 minutes = 5;
             }
             if (minutes <= 0) {
-                editMinutes.setError("分钟数需大于0");
+                editMinutes.setError(getString(R.string.error_minutes));
                 return;
             }
             FloatingService.startCountdownFromActivity(this, name, minutes);

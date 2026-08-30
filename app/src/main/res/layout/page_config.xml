@@ -149,6 +149,41 @@
                 android:minWidth="64dp" />
         </LinearLayout>
 
+        <!-- 语言 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_language"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="10dp" />
+
+        <RadioGroup
+            android:id="@+id/langGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/langSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lang_system" />
+
+            <RadioButton
+                android:id="@+id/langZh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lang_zh" />
+
+            <RadioButton
+                android:id="@+id/langEn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lang_en" />
+        </RadioGroup>
+
     </LinearLayout>
 
 </ScrollView>

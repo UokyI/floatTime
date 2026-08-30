@@ -73,17 +73,28 @@ public class FloatingService extends Service {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(AppLocale.wrap(newBase));
+    }
+
+    /** 取当前语言下的字符串（Service 运行中切换语言后也立即生效）。 */
+    private String ls(int resId, Object... args) {
+        return AppLocale.localized(this).getString(resId, args);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         running = true;
         windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         createNotificationChannel();
-        startForeground(NOTI_ID, buildNotification("悬浮倒计时已开启"));
+        startForeground(NOTI_ID, buildNotification(ls(R.string.notification_started)));
         showFloatingView();
     }
 
     private void applyConfig() {
         cfg = Config.load(this);
+        AppLocale.setDefault(cfg.lang);
         if (liquidView != null) {
             liquidView.setIdleColors(cfg.idleC, cfg.idleD, cfg.idleG);
             liquidView.setActiveColors(cfg.actC, cfg.actD, cfg.actG);
@@ -100,6 +111,8 @@ public class FloatingService extends Service {
                 }
             }
         }
+        createNotificationChannel();
+        updateNotificationForState();
     }
 
     @Override
@@ -141,16 +154,16 @@ public class FloatingService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && nm != null) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
-                    getString(R.string.float_channel_name),
+                    ls(R.string.float_channel_name),
                     NotificationManager.IMPORTANCE_LOW);
-            channel.setDescription(getString(R.string.float_channel_desc));
+            channel.setDescription(ls(R.string.float_channel_desc));
             nm.createNotificationChannel(channel);
         }
     }
 
     private Notification buildNotification(String content) {
         return new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle(getString(R.string.app_name))
+                .setContentTitle(ls(R.string.app_name))
                 .setContentText(content)
                 .setSmallIcon(android.R.drawable.ic_menu_recent_history)
                 .setOngoing(true)
@@ -171,7 +184,7 @@ public class FloatingService extends Service {
             return;
         }
 
-        rootView = LayoutInflater.from(this).inflate(R.layout.view_floating, null, false);
+        rootView = LayoutInflater.from(AppLocale.localized(this)).inflate(R.layout.view_floating, null, false);
         liquidView = rootView.findViewById(R.id.liquidView);
         cfg = Config.load(this);
         liquidView.setIdleColors(cfg.idleC, cfg.idleD, cfg.idleG);
@@ -329,7 +342,7 @@ public class FloatingService extends Service {
     private void showSettingDialog() {
         if (dialogShowing || dialogView != null) return;
         try {
-            dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_countdown, null, false);
+            dialogView = LayoutInflater.from(AppLocale.localized(this)).inflate(R.layout.dialog_countdown, null, false);
 
             EditText editTaskName = dialogView.findViewById(R.id.editTaskName);
             EditText editMinutes = dialogView.findViewById(R.id.editMinutes);
@@ -343,7 +356,7 @@ public class FloatingService extends Service {
             btnStart.setOnClickListener(v -> {
                 String name = editTaskName.getText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
-                    editTaskName.setError("请输入任务名称");
+                    editTaskName.setError(ls(R.string.error_task_name));
                     return;
                 }
                 String minStr = editMinutes.getText().toString().trim();
@@ -354,7 +367,7 @@ public class FloatingService extends Service {
                     minutes = 5;
                 }
                 if (minutes <= 0) {
-                    editMinutes.setError("分钟数需大于0");
+                    editMinutes.setError(ls(R.string.error_minutes));
                     return;
                 }
                 removeSettingDialog();
@@ -423,7 +436,7 @@ public class FloatingService extends Service {
         liquidView.setTopText(frontTwo(taskName));
         liquidView.setBottomText(formatTime(remainingMillis));
 
-        refreshNotification("倒计时中：" + taskName);
+        refreshNotification(ls(R.string.notification_counting, taskName));
 
         if (countDownTimer != null) countDownTimer.cancel();
         countDownTimer = new CountDownTimer(remainingMillis, 1000) {
@@ -439,7 +452,7 @@ public class FloatingService extends Service {
                 liquidView.setBottomText("0:00");
                 counting = false;
                 triggerRemind();
-                refreshNotification("任务完成：" + taskName);
+                refreshNotification(ls(R.string.notification_done, taskName));
                 if (pendingHistoryItem != null) {
                     History.update(FloatingService.this, pendingHistoryItem.id,
                             History.STATUS_COMPLETED, System.currentTimeMillis());
@@ -467,7 +480,7 @@ public class FloatingService extends Service {
         liquidView.setShowText(false);
         liquidView.setTopText("");
         liquidView.setBottomText("");
-        refreshNotification("悬浮倒计时已开启");
+        refreshNotification(ls(R.string.notification_started));
     }
 
     private String frontTwo(String s) {
@@ -539,6 +552,16 @@ public class FloatingService extends Service {
         if (nm != null) {
             nm.notify(NOTI_ID, buildNotification(content));
         }
+    }
+
+    private void updateNotificationForState() {
+        String txt;
+        if (counting && currentTask != null && !currentTask.isEmpty()) {
+            txt = ls(R.string.notification_counting, currentTask);
+        } else {
+            txt = ls(R.string.notification_started);
+        }
+        refreshNotification(txt);
     }
 
     private void openMainActivity() {

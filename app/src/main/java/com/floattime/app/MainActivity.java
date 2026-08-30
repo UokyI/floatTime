@@ -2,6 +2,7 @@ package com.floattime.app;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -33,6 +34,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQ_OVERLAY = 1001;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(AppLocale.wrap(newBase));
+    }
 
     private DrawerLayout drawerLayout;
     private TextView titleBar;
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.menuRemind)).setText(R.string.menu_remind);
         ((Button) findViewById(R.id.menuAdvanced)).setText(R.string.menu_advanced);
         ((Button) findViewById(R.id.menuAbout)).setText(R.string.menu_about);
+        ((Button) findViewById(R.id.menuPrivacy)).setText(R.string.menu_privacy);
 
         findViewById(R.id.btnMenu).setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
@@ -89,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.menuRemind).setOnClickListener(v -> { showPage(3); drawerLayout.closeDrawers(); });
         findViewById(R.id.menuAdvanced).setOnClickListener(v -> { drawerLayout.closeDrawers(); showAdvanced(); });
         findViewById(R.id.menuAbout).setOnClickListener(v -> { drawerLayout.closeDrawers(); showAbout(); });
+        findViewById(R.id.menuPrivacy).setOnClickListener(v -> { drawerLayout.closeDrawers(); openPrivacyPolicy(); });
 
         initPages();
         showPage(0);
@@ -172,6 +180,27 @@ public class MainActivity extends AppCompatActivity {
         });
         seekTextSize.setProgress(cfg.textSizeSp);
         textTextSize.setText(cfg.textSizeSp + "sp");
+
+        // 语言
+        RadioGroup langGroup = pageConfig.findViewById(R.id.langGroup);
+        String lang = cfg.lang == null ? AppLocale.SYSTEM : cfg.lang;
+        int langId;
+        if (AppLocale.EN.equals(lang)) langId = R.id.langEn;
+        else if (AppLocale.ZH.equals(lang)) langId = R.id.langZh;
+        else langId = R.id.langSystem;
+        langGroup.check(langId);
+        langGroup.setOnCheckedChangeListener((g, id) -> {
+            String newLang;
+            if (id == R.id.langEn) newLang = AppLocale.EN;
+            else if (id == R.id.langZh) newLang = AppLocale.ZH;
+            else newLang = AppLocale.SYSTEM;
+            if (newLang.equals(cfg.lang)) return;
+            cfg.lang = newLang;
+            cfg.save(MainActivity.this);
+            notifyServiceConfigChanged();
+            AppLocale.setDefault(newLang);
+            recreate();
+        });
 
         // 提醒页
         RadioGroup remindGroup = pageRemind.findViewById(R.id.remindGroup);
@@ -366,6 +395,24 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage(R.string.about_content)
                 .setPositiveButton(R.string.btn_confirm, null)
                 .show();
+    }
+
+    private void openPrivacyPolicy() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_url))));
+        } catch (ActivityNotFoundException e) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.menu_privacy)
+                    .setMessage(R.string.privacy_policy_url)
+                    .setPositiveButton(R.string.btn_copy, (d, w) -> {
+                        android.content.ClipboardManager cm = (android.content.ClipboardManager)
+                                getSystemService(CLIPBOARD_SERVICE);
+                        cm.setPrimaryClip(android.content.ClipData.newPlainText("privacy", getString(R.string.privacy_policy_url)));
+                        Toast.makeText(this, R.string.copied, Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton(R.string.btn_confirm, null)
+                    .show();
+        }
     }
 
     private void notifyServiceConfigChanged() {

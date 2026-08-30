@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">floatTime</string>
+    <string name="float_channel_name">Float Countdown Service</string>
+    <string name="float_channel_desc">Keeps the floating icon visible</string>
+    <string name="notification_ticker">Float countdown running</string>
+
+    <string name="hint_task_name">Task name</string>
+    <string name="hint_minutes">Duration (minutes)</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_start">Start</string>
+    <string name="dialog_title">Set countdown task</string>
+
+    <string name="permission_required">Overlay permission is required to show the floating icon</string>
+    <string name="open_permission">Grant</string>
+    <string name="start_float">Enable floating</string>
+    <string name="stop_float">Disable floating</string>
+
+    <string name="label_idle_color">Countdown off (idle color)</string>
+    <string name="label_active_color">Countdown on (active color)</string>
+    <string name="label_ball_size">Floating ball diameter</string>
+    <string name="label_text_size">Floating ball font size</string>
+    <string name="label_language">Language</string>
+    <string name="lang_system">Follow system</string>
+    <string name="lang_zh">中文</string>
+    <string name="lang_en">English</string>
+    <string name="btn_pick_color">Pick color</string>
+    <string name="color_picker_title">Pick a color</string>
+    <string name="btn_confirm">OK</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_config">Settings</string>
+    <string name="menu_history">History</string>
+    <string name="menu_advanced">Advanced</string>
+    <string name="menu_remind">Reminder</string>
+    <string name="menu_about">About</string>
+    <string name="menu_privacy">Privacy Policy</string>
+    <string name="drawer_open">Open menu</string>
+    <string name="drawer_close">Close menu</string>
+
+    <string name="page_config_title">Settings</string>
+    <string name="page_history_title">History</string>
+    <string name="page_remind_title">Reminder method</string>
+    <string name="remind_silent">Silent</string>
+    <string name="remind_vibrate">Vibrate</string>
+    <string name="remind_light">Gentle alert</string>
+    <string name="remind_storm">Flash</string>
+    <string name="remind_desc">Reminder method when the countdown finishes</string>
+
+    <string name="error_task_name">Please enter a task name</string>
+    <string name="error_minutes">Minutes must be greater than 0</string>
+    <string name="history_detail_format">%1$d min · %2$s</string>
+    <string name="notification_started">Float countdown enabled</string>
+    <string name="notification_counting">Counting down: %1$s</string>
+    <string name="notification_done">Task complete: %1$s</string>
+
+    <string name="history_empty">No history yet</string>
+    <string name="history_completed">Completed</string>
+    <string name="history_cancelled">Cancelled</string>
+    <string name="history_clear_all">Clear all</string>
+    <string name="history_clear_confirm">Clear all history?</string>
+    <string name="history_delete_confirm">Delete this record?</string>
+    <string name="history_delete">Delete</string>
+    <string name="history_apply">Apply</string>
+
+    <string name="adv_view_config">View config</string>
+    <string name="adv_reset">Reset</string>
+    <string name="adv_reset_confirm">Reset all settings to defaults?</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_paste">Paste</string>
+    <string name="btn_config_close">Close</string>
+    <string name="copied">Copied</string>
+    <string name="pasted">Pasted</string>
+    <string name="paste_invalid">Invalid paste format</string>
+
+    <string name="about_title">About</string>
+    <string name="about_content">floatTime\n\nA simple, minimal floating countdown app for Android.\n\n• Circular floating icon, draggable anywhere on the screen\n• Long-press to set up: task name + duration in minutes\n• While counting, the icon shows the task name above and a seconds-level countdown below\n• Phone vibrates when time is up\n• Customizable idle/active colors and ball diameter\n\nColors: Peach RGB(251,204,199) / Mint RGB(149,197,172)\nLiquid glass dynamic UI</string>
+</resources>

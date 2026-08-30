@@ -6,7 +6,7 @@
 
     <string name="hint_task_name">任务名称</string>
     <string name="hint_minutes">定时时间(分钟)</string>
-    <string name="default_minutes">5</string>
+    <string name="default_minutes" translatable="false">5</string>
     <string name="btn_cancel">取消</string>
     <string name="btn_start">开始</string>
     <string name="dialog_title">设定倒计时任务</string>
@@ -20,6 +20,10 @@
     <string name="label_active_color">倒计时开启（进行色）</string>
     <string name="label_ball_size">悬浮球直径</string>
     <string name="label_text_size">悬浮球字体大小</string>
+    <string name="label_language">语言</string>
+    <string name="lang_system">跟随系统</string>
+    <string name="lang_zh">中文</string>
+    <string name="lang_en">English</string>
     <string name="btn_pick_color">选择颜色</string>
     <string name="color_picker_title">选择颜色</string>
     <string name="btn_confirm">确定</string>
@@ -30,6 +34,8 @@
     <string name="menu_advanced">高级配置</string>
     <string name="menu_remind">提醒</string>
     <string name="menu_about">关于</string>
+    <string name="menu_privacy">隐私政策</string>
+    <string name="privacy_policy_url" translatable="false">https://uokyi.github.io/floattime/privacy-policy.html</string>
     <string name="drawer_open">打开菜单</string>
     <string name="drawer_close">关闭菜单</string>
 
@@ -41,6 +47,13 @@
     <string name="remind_light">轻度提醒</string>
     <string name="remind_storm">闪动</string>
     <string name="remind_desc">达到倒计时后的提醒方式</string>
+
+    <string name="error_task_name">请输入任务名称</string>
+    <string name="error_minutes">分钟数需大于0</string>
+    <string name="history_detail_format">%1$d分钟 · %2$s</string>
+    <string name="notification_started">悬浮倒计时已开启</string>
+    <string name="notification_counting">倒计时中：%1$s</string>
+    <string name="notification_done">任务完成：%1$s</string>
     <string name="history_empty">暂无历史记录</string>
     <string name="history_completed">完成</string>
     <string name="history_cancelled">取消</string>

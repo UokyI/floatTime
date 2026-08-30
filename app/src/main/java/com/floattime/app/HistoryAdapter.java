@@ -61,7 +61,7 @@ public class HistoryAdapter extends BaseAdapter {
         TextView status = cv.findViewById(R.id.histStatus);
 
         task.setText(it.task);
-        detail.setText(it.minutes + "分钟 · " + dateFmt.format(new Date(it.timestamp)));
+        detail.setText(ctx.getString(R.string.history_detail_format, it.minutes, dateFmt.format(new Date(it.timestamp))));
         status.setText(it.statusSymbol());
         status.setTextColor(it.statusColor());
 

@@ -47,4 +47,8 @@
         android:id="@+id/menuAbout"
         style="@style/MenuButton" />
 
+    <Button
+        android:id="@+id/menuPrivacy"
+        style="@style/MenuButton" />
+
 </LinearLayout>
