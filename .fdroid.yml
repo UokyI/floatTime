@@ -1,0 +1,25 @@
+AuthorName: Uoky
+AuthorEmail: 39208920+UokyI@users.noreply.github.com
+Categories:
+  - Time
+License: MIT
+SourceCode: https://github.com/UokyI/floatTime
+IssueTracker: https://github.com/UokyI/floatTime
+Changelog: https://github.com/UokyI/floatTime
+
+AutoName: Floating Countdown
+
+Repo: https://github.com/UokyI/floatTime.git
+
+Builds:
+  - versionName: 1.0.2
+    versionCode: 3
+    commit: v1.0.2
+    subdir: ''
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.2
+CurrentVersionCode: 3
