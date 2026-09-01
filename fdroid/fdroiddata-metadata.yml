@@ -1,0 +1,51 @@
+# F-Droid packaging metadata template for com.floattime.app
+# Save as:  metadata/com.floattime.app.yml  (in the fdroiddata repository)
+# Submit via: https://gitlab.com/fdroid/fdroiddata (or an issue/MR there)
+
+Categories:
+  - Time
+License: MIT
+AuthorName: Uoky
+AuthorEmail: 39208920+UokyI@users.noreply.github.com
+WebSite: https://github.com/UokyI/floatTime
+SourceCode: https://github.com/UokyI/floatTime
+IssueTracker: https://github.com/UokyI/floatTime
+Changelog: https://github.com/UokyI/floatTime
+
+AutoName: Floating Countdown
+Name: Floating Countdown
+Summary: A simple on-screen floating countdown timer
+Description: |
+  Floating Countdown is a minimal, glassy floating countdown timer that
+  works as an always-on-top floating bubble on your screen.
+
+  Features:
+  * A circular floating icon that you can drag anywhere on the screen
+  * Long-press the bubble to set a task name and a countdown in minutes
+  * After starting, the top half of the bubble shows the first two
+    characters of the task name while the bottom half shows a
+    seconds-level countdown (e.g. 4:59)
+  * Vibrates when the countdown finishes
+  * Choose your own idle/active colors and the bubble diameter
+  * Chinese / English in-app language switch
+
+  Color scheme: peach RGB(251,204,199) / mint RGB(149,197,172).
+  A liquid/glass dynamic UI.
+
+RequiresRoot: 'No'
+
+Repo: https://github.com/UokyI/floatTime.git
+Commit: v1.0.2
+Subdir: ''
+
+Builds:
+  - versionName: 1.0.2
+    versionCode: 3
+    commit: v1.0.2
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.2
+CurrentVersionCode: 3
