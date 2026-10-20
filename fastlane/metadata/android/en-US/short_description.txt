@@ -1,0 +1,1 @@
+A simple on-screen floating countdown timer

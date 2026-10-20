@@ -1,0 +1,11 @@
+Floating Countdown is a minimal, glassy floating countdown timer that works as an always-on-top floating bubble on your screen.
+
+Features:
+* A circular floating icon that you can drag anywhere on the screen
+* Long-press the bubble to set a task name and a countdown in minutes
+* After starting, the top half of the bubble shows the first two characters of the task name while the bottom half shows a seconds-level countdown (e.g. 4:59)
+* Vibrates when the countdown finishes
+* Choose your own idle/active colors and the bubble diameter
+* Chinese / English in-app language switch
+
+Color scheme: peach RGB(251,204,199) / mint RGB(149,197,172). A liquid/glass dynamic UI.
